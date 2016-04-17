@@ -18,9 +18,15 @@ public class FormatFactory extends HttpServlet {
 		super();
 	}
 
+	public static void newInstance() {
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String chosenFormat = "http://localhost:8080/labb01/" + request.getParameter("chosenFormat");
+		//Creates the link to the next page depending on the requested arguments
+		String chosenFormat = "http://localhost:8080/androidServletLabb/" + request.getParameter("format") + "format" 
+			+ "?id=" + request.getParameter("id");
+		
 		redirect(chosenFormat, request, response);
 
 	}
@@ -28,8 +34,8 @@ public class FormatFactory extends HttpServlet {
 	// Redirects to the next page with the chosen format for grabbing data
 	private void redirect(String chosenFormat, HttpServletRequest request, HttpServletResponse response) {
 		try {
-			response.sendRedirect("http://localhost:8080/labb01/jsonformat");
-			// response.sendRedirect(chosenFormat + "hehj");
+			response.sendRedirect(chosenFormat);
+//			response.sendRedirect("http://localhost:8080/androidServletLabb/xmlformat");
 		} catch (IOException e) {
 
 			// TODO create own exception
