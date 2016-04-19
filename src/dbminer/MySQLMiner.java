@@ -34,6 +34,7 @@ public class MySQLMiner {
 		return instance;
 	}
 
+	
 	//Establishes connection to MySQL db
 	private static void init() {
 		try {
