@@ -116,7 +116,7 @@ public class JSONFormat extends HttpServlet {
 		try {
 			while (rs.next()) {
 				sb.append("\t\t{\n");
-				sb.append("\t\t\t\"studentName\":\"" + rs.getString("name") + ",\n" + 
+				sb.append("\t\t\t\"studentName\":\"" + rs.getString("name") + "\",\n" + 
 				"\t\t\t\"studentID\":" + rs.getInt("id") + "\n");
 				sb.append("\t\t}");
 				if(!rs.isLast()) sb.append(",");

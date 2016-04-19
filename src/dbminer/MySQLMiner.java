@@ -11,6 +11,14 @@ import java.sql.Statement;
  * possibility to return a ResultSet with each query sent
  */
 public class MySQLMiner {
+	  static {
+		    try {
+		      Class.forName("com.mysql.jdbc.Driver");
+		    } catch (ClassNotFoundException e) {
+		      e.printStackTrace();
+		    }
+		  }
+	  
 	private static MySQLMiner instance = null;
 	private static Connection con;
 	
