@@ -38,7 +38,7 @@ public class MySQLMiner {
 	//Establishes connection to MySQL db
 	private static void init() {
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/androidlabb", "root", "4aGwhtj9");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/androidlabb", "root", "Losen123");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Couldnt establish db connection");
