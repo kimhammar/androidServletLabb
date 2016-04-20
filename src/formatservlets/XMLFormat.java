@@ -44,17 +44,14 @@ public class XMLFormat extends HttpServlet {
 //			xml.append(getAllStudents());
 			if (idRequest.equals("all")) xml.append(getAllStudents());
 			else if (Integer.parseInt(idRequest) <= amountOfStudents) xml.append(getCourses(Integer.parseInt(idRequest)));
-			else xml.append("<INVALID REQUEST>");
+			else xml.append("<ERROR>INVALID REQUEST</ERROR>");
 			out.println(xml);
 		} 
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
