@@ -1,6 +1,8 @@
 package factories;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import exceptions.NoSuchFormatException;
+import formats.GroundFormat;
+import interfaces.Format;
 
 /**
  * Servlet implementation class FormatFactory
@@ -25,11 +29,20 @@ public class FormatRedirecter extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		
+		
 		// Creates the link to the next page depending on the requested
 		// arguments
 		try {
-			String format = FormatFactory.getFormatUrl(request.getParameter("format"));
-			redirect(format, request, response);
+			String result;
+			GroundFormat sc = FormatFactory.getFormat(request.getParameter("format"));
+			if(request.getParameter("id").toLowerCase().equals("all"))
+			result = sc.fetchStudents();
+			else result = sc.fetchCourses(Integer.parseInt(request.getParameter("id")));
+			response.setContentType(sc.getContentType());
+			out.println(result);
+			
 		} catch (NoSuchFormatException e) {
 			e.printStackTrace();
 		}

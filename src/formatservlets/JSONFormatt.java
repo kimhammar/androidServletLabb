@@ -20,10 +20,10 @@ import dbminer.MySQLMiner;
  */
 
 @WebServlet("/jsonformat")
-public class JSONFormat extends HttpServlet {
+public class JSONFormatt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public JSONFormat() {
+	public JSONFormatt() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

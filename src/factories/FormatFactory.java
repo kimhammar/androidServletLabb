@@ -1,18 +1,19 @@
 package factories;
 
 import exceptions.NoSuchFormatException;
+import formats.GroundFormat;
+import formats.JSONFormat;
+import formats.XMLFormat;
 
 public class FormatFactory {
 	
-	public static String getFormatUrl(String format) throws NoSuchFormatException {
-		String url = "http://localhost:8080/androidServletLabb/";
-		String urlEnd = "format";
-		if (format.equals("xml")) {
-			return url + format + urlEnd;
-		} else if (format.equals("json")) {
-			return url + format + urlEnd;
-		}
-		throw new NoSuchFormatException("Format not supported");
+	public static GroundFormat getFormat(String format) throws NoSuchFormatException {
+		if(format.toLowerCase().equals("xml"))
+			return (GroundFormat) new XMLFormat();
+		else if(format.toLowerCase().equals("json"))
+			return(GroundFormat) new JSONFormat();
+		else
+			throw new NoSuchFormatException("Format not supported");
 	}
 
 }

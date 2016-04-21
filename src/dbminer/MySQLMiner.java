@@ -46,20 +46,6 @@ public class MySQLMiner {
 		}
 	}
 	
-	/*
-	 * Method which will return a new ResultSet for every query sent
-	 */
-	public synchronized ResultSet extractData(String query) {
-		ResultSet rs = null;
-		Statement stmt;
-		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(query);
-		} catch (SQLException e) {
-			System.out.println("Bad query");
-			// TODO Make own exception
-			e.printStackTrace();
-		}
-		return rs;
-	}
+	
+
 }
