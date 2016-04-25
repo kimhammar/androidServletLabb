@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBUtils {
+import interfaces.Database;
+
+public class MySQLDatabase implements Database{
+	private static Connection con;
+	
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -15,26 +19,14 @@ public class DBUtils {
 		}
 	}
 
-	private static DBUtils instance = null;
-	private static Connection con;
-
-	private DBUtils() {
+	public MySQLDatabase() {
+		init();
 	}
-
-	// Singleton
-	public static DBUtils getInstance() {
-		if (instance == null) {
-			instance = new DBUtils();
-			init();
-		}
-		return instance;
-	}
-	
 	
 	/*
 	 * Method which will return a new ResultSet for every query sent
 	 */
-	public synchronized ResultSet extractData(String query) {
+	public ResultSet extractData(String query) {
 		ResultSet rs = null;
 		Statement stmt;
 		try {
@@ -48,7 +40,7 @@ public class DBUtils {
 		return rs;
 	}
 
-	// Establishes connection to MySQL db
+	// Establishes connection to a MySQL database
 	private static void init() {
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/androidlabb", "root", "Losen123");

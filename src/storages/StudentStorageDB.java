@@ -1,4 +1,4 @@
-package factories;
+package storages;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,17 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import dbminer.DBUtils;
+import dbminer.MySQLDatabase;
 import domain.Course;
 import domain.Student;
-import exceptions.NoNameFoundException;
+import exceptions.NoStudentFoundException;
+import interfaces.Database;
 import interfaces.StudentStorage;
 
 public class StudentStorageDB implements StudentStorage {
+	//Skulle kunna ha en factory för vilken typ av databas man skall välja
+	Database mySQLDB = new MySQLDatabase();
 
 	public List<Student> getStudentList() {
 		List<Student> returnList = new ArrayList<>();
-		ResultSet rs = DBUtils.getInstance().extractData("select * from students");
+		ResultSet rs = mySQLDB.extractData("select * from students");
 		try {
 			while (rs.next()) {
 				returnList.add(new Student(rs.getString("name"), rs.getInt("id")));
@@ -29,14 +32,13 @@ public class StudentStorageDB implements StudentStorage {
 		return returnList;
 	}
 
-	@Override
 	public List<Course> getCourseList(int id) {
 		List<Course> returnList = new ArrayList<>();
 		String courseQuery = "SELECT course_code " + "FROM courses as c " + "JOIN registrations as r "
 				+ "ON c.id = r.course_id " + "JOIN students as s " + "ON r.student_id = s.id " + "WHERE s.id = " + id;
 		try {
 
-			ResultSet rs = DBUtils.getInstance().extractData(courseQuery);
+			ResultSet rs = mySQLDB.extractData(courseQuery);
 			while (rs.next()) {
 				returnList.add(new Course(rs.getString("course_code")));
 			}
@@ -50,7 +52,7 @@ public class StudentStorageDB implements StudentStorage {
 	}
 	
 	public String getStudentName(int id) {
-		ResultSet rs = DBUtils.getInstance().extractData("select name from students where id=" + id);
+		ResultSet rs = mySQLDB.extractData("select name from students where id=" + id);
 		try {
 			rs.next();
 			return rs.getString("name");

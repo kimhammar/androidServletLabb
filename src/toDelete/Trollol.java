@@ -1,10 +1,10 @@
-package factories;
+package toDelete;
 
-import exceptions.NoSuchFormatException;
+import exceptions.FormatNotSupportedException;
 
 public class Trollol {
 	
-	public static String getFormatUrl(String format) throws NoSuchFormatException {
+	public static String getFormatUrl(String format) throws FormatNotSupportedException {
 		String url = "http://localhost:8080/androidServletLabb/";
 		String urlEnd = "format";
 		if (format.equals("xml")) {
@@ -12,7 +12,7 @@ public class Trollol {
 		} else if (format.equals("json")) {
 			return url + format + urlEnd;
 		}
-		throw new NoSuchFormatException("Format not supported");
+		throw new FormatNotSupportedException("Format not supported");
 	}
 
 }

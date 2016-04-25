@@ -1,4 +1,4 @@
-package dbminer;
+package toDelete;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,8 +20,6 @@ public class MySQLMiner {
 		  }
 	  
 	private static MySQLMiner instance = null;
-	private static Connection con;
-	
 	private MySQLMiner() {
 	}
 	

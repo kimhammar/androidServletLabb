@@ -1,19 +1,23 @@
 package factories;
 
-import exceptions.NoSuchFormatException;
-import formats.GroundFormat;
+import exceptions.FormatNotSupportedException;
+import formats.GroundFormatDB;
 import formats.JSONFormat;
 import formats.XMLFormat;
 
 public class FormatFactory {
 	
-	public static GroundFormat getFormat(String format) throws NoSuchFormatException {
+	
+	/*
+	 * Returns a new Formater for the chosen format
+	 */
+	public static GroundFormatDB getFormat(String format) throws FormatNotSupportedException {
 		if(format.toLowerCase().equals("xml"))
-			return (GroundFormat) new XMLFormat();
+			return (GroundFormatDB) new XMLFormat();
 		else if(format.toLowerCase().equals("json"))
-			return(GroundFormat) new JSONFormat();
+			return(GroundFormatDB) new JSONFormat();
 		else
-			throw new NoSuchFormatException("Format not supported");
+			throw new FormatNotSupportedException("Format not supported");
 	}
 
 }
