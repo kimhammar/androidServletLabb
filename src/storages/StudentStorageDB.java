@@ -5,16 +5,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import dbminer.MySQLDatabase;
+import databases.Database;
+import databases.MySQLDatabase;
 import domain.Course;
 import domain.Student;
 import exceptions.NoStudentFoundException;
-import interfaces.Database;
-import interfaces.StudentStorage;
 
+/**
+ * This class represents a Storage coming from a database
+ * @author Kim Hammar
+ *
+ */
 public class StudentStorageDB implements StudentStorage {
-	//Skulle kunna ha en factory för vilken typ av databas man skall välja
+	//Would be possible to have a factory here for type of db, SQLite, MySQL etc
 	Database mySQLDB = new MySQLDatabase();
 
 	public List<Student> getStudentList() {
@@ -43,7 +46,6 @@ public class StudentStorageDB implements StudentStorage {
 				returnList.add(new Course(rs.getString("course_code")));
 			}
 		} catch (SQLException e) {
-			// TODO generate no such column exception
 			System.out.println("No such column");
 			e.printStackTrace();
 		}

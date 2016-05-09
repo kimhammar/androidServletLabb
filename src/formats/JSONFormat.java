@@ -4,8 +4,23 @@ import java.util.stream.Collectors;
 
 import domain.Course;
 import domain.Student;
+import settings.Settings;
+import storages.NoSuchStorageException;
+import storages.StorageFactory;
+import storages.StudentStorage;
+import storages.StudentStorageDB;
 
-public class JSONFormat extends GroundFormatDB{
+/**
+ * This class is used for formating JSON output
+ * @author Kim Hammar
+ *
+ */
+public class JSONFormat implements Format{
+	protected StudentStorage storage;
+	
+	public JSONFormat() throws NoSuchStorageException {
+		storage = StorageFactory.getStudentStorage(Settings.STORAGE_TYPE);
+	}
 	
 	
 	@Override
@@ -19,7 +34,9 @@ public class JSONFormat extends GroundFormatDB{
 					   "\n\t]\n}";
 	}
 
-	public String fetchCourses(int id) {
+	public String fetchCourses(String studentId) throws IdNotFoundException {
+		int id = Integer.parseInt(studentId);
+		if(storage.getStudentName(id) == null) throw new IdNotFoundException(getIdErrorMessage());
 		return "{\n\t\"studentName\":\"" +storage.getStudentName(id) + "\",\n" +
 				"\t\"studentID\":\"" + id + "\",\n" +
 				"\t\"courses\":\n\t[" + storage.getCourseList(id).stream()
@@ -45,5 +62,12 @@ public class JSONFormat extends GroundFormatDB{
 	public String getContentType() {
 	return "application/json";
 	}
+
+	@Override
+	public String getIdErrorMessage() {
+		return "{ \"error\": \"id not found\"}";
+	}
+
+
 
 }
